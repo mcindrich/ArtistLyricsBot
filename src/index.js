@@ -3,8 +3,8 @@ const azlyrics = require('../lib/azlyrics')
 const yargs = require('yargs/yargs')
 const { hideBin } = require('yargs/helpers')
 
-const MAX_LINES = 4
-const MIN_LINES = 1
+var MAX_LINES = 4
+var MIN_LINES = 1
 var DISCORD_WEBHOOK = ''
 
 function postToDiscord(data) {
@@ -97,22 +97,29 @@ const argv = yargs(hideBin(process.argv))
         description: 'Artist to search'
     }).option('interval', {
         alias: 'i',
+        default: 60 * 1000 * 15,
         type: 'number',
         description: 'Number of ms in between posts'
+    }).option('max', {
+        alias: 'M',
+        type: 'number',
+        default: 4,
+        description: 'Max number of lines to post'
+    }).option('min', {
+        alias: 'm',
+        type: 'number',
+        default: 1,
+        description: 'Min number of lines to post'
     }).demandOption(['a', 'w'])
     .argv
 
-let programOptions = {
-    artist: argv.artist,
-    interval: argv.interval ? argv.interval : 1000 * 60 * 20,
-    webhook: argv.webhook
-}
-
 // set the webhook for later use
-DISCORD_WEBHOOK = programOptions.webhook
+DISCORD_WEBHOOK = argv.webhook
+MAX_LINES = argv.max
+MIN_LINES = argv.min
 
-azlyrics.getAlbumsFromArtist(programOptions.artist, getAlbumsCallback)
+azlyrics.getAlbumsFromArtist(argv.artist, getAlbumsCallback)
 
 setInterval(function () {
-    azlyrics.getAlbumsFromArtist(programOptions.artist, getAlbumsCallback)
-}, programOptions.interval)
+    azlyrics.getAlbumsFromArtist(argv.artist, getAlbumsCallback)
+}, argv.interval)
