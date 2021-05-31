@@ -22,7 +22,7 @@ function postToDiscord(data) {
         }
     }
 
-    console.log(`Post request: ${JSON.stringify(options)}`)
+    console.log(`Post request: ${dataStr}`)
 
     let dataString = ''
 
@@ -90,15 +90,15 @@ const argv = yargs(hideBin(process.argv))
     .option('webhook', {
         alias: 'w',
         type: 'string',
-        description: 'Sets the discord webhook path'
+        description: 'Webhook path'
     }).option('artist', {
         alias: 'a',
         type: 'string',
-        description: 'Sets the artist to search for'
+        description: 'Artist to search'
     }).option('interval', {
         alias: 'i',
         type: 'number',
-        description: 'Sets the number of miliseconds to wait before another search and post'
+        description: 'Number of ms in between posts'
     }).demandOption(['a', 'w'])
     .argv
 
