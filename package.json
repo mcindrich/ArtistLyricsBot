@@ -1,0 +1,18 @@
+{
+  "name": "artistlyricsbot",
+  "version": "1.0.0",
+  "description": "Bot for sending random lyrics from a given artist to discord using a webhook.",
+  "main": "build/src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "npx tsc && node build/src/index.js"
+  },
+  "author": "mcindrich",
+  "license": "ISC",
+  "dependencies": {
+    "@types/node": "^15.6.1",
+    "node-html-parser": "^3.3.4",
+    "typescript": "^4.3.2",
+    "yargs": "^17.0.1"
+  }
+}
